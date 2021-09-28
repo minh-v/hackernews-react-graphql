@@ -24,7 +24,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div class="container mx-auto">
       {data.allLinks.map((link) => (
         <Link link={link} />
       ))}
