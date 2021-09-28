@@ -23,15 +23,18 @@ async function startApolloServer(typeDefs, resolvers) {
 
 let links = [
   {
-    description: "description1",
-    url: "url1",
+    id: "1",
+    description: "google",
+    url: "https://www.google.com/",
   },
   {
-    description: "description2",
-    url: "url2",
+    id: "2",
+    description: "one piece",
+    url: "https://www.reddit.com/r/onepiece",
   },
   {
-    description: "description3",
+    id: "3",
+    description: "description 3",
     url: "url3",
   },
 ]
@@ -39,7 +42,7 @@ let links = [
 const resolvers = {
   Query: {
     linkCount: () => links.length,
-    links: () => links,
+    allLinks: () => links,
   },
 }
 
