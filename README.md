@@ -1,6 +1,7 @@
 Features to implement
 
 - Display a list of links  
+	Browser queries links with GraphQL from mongoDB.
 - Search the list of links  
 - Handle user authentication  
 - Allow authenticated users to create new links  

@@ -4,6 +4,20 @@ import express from "express"
 import http from "http"
 import cors from "cors"
 import typeDefs from "./schema/typeDefs"
+import mongoose from "mongoose"
+import Link from "./db/schema/Link"
+require("dotenv").config()
+
+const MONGODB_URI = process.env.MONGODB_URI
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("connected to MongoDB")
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB", error)
+  })
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express()
@@ -21,28 +35,13 @@ async function startApolloServer(typeDefs, resolvers) {
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 }
 
-let links = [
-  {
-    id: "1",
-    description: "google",
-    url: "https://www.google.com/",
-  },
-  {
-    id: "2",
-    description: "one piece",
-    url: "https://www.reddit.com/r/onepiece",
-  },
-  {
-    id: "3",
-    description: "description 3",
-    url: "url3",
-  },
-]
-
 const resolvers = {
   Query: {
-    linkCount: () => links.length,
-    allLinks: () => links,
+    linkCount: () => Link.collection.countDocuments(),
+    allLinks: (root, args) => {
+      //filters missing
+      return Link.find({})
+    },
   },
 }
 

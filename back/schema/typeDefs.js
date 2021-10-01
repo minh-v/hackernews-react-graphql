@@ -16,6 +16,10 @@ const typeDefs = gql`
     dateCreated: DateTime!
   }
 
+  type Token {
+    value: String!
+  }
+
   type Query {
     linkCount: Int!
     allLinks: [Link]
