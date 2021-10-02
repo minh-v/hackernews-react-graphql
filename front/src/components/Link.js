@@ -4,7 +4,7 @@ const Link = ({ link }) => {
   return (
     <div>
       <p>
-        {link.description} {link.url}
+        {link.title} {link.url} {link.timeCreated}
       </p>
     </div>
   )

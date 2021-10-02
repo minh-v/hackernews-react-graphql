@@ -3,10 +3,9 @@ import { gql } from "apollo-server"
 const typeDefs = gql`
   type Link {
     id: ID!
-    description: String
+    title: String
     url: String
-    timeCreated: DateTime!
-    createdBy: User!
+    timeCreated: String!
   }
 
   type User {
@@ -23,6 +22,12 @@ const typeDefs = gql`
   type Query {
     linkCount: Int!
     allLinks: [Link]
+  }
+
+  type Mutation {
+    addLink(title: String!, url: String!, timeCreated: String!): Link
+    createUser(username: String!, password: String!, name: String!): User
+    login(username: String!, password: String!): Token
   }
 
   scalar DateTime

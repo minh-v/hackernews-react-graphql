@@ -8,6 +8,7 @@ const userSchema = new Schema({
     unique: true,
     minLength: 3,
   },
+  email: String,
   passwordHash: {
     type: String,
     required: true,
@@ -15,5 +16,15 @@ const userSchema = new Schema({
   },
 })
 
+userSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    delete returnedObject.__v
+    //paswordHash should not be revealed
+    delete returnedObject.passwordHash
+  },
+})
+
 userSchema.plugin(uniqueValidator)
-export default mongoose.model("User", schema)
+
+const User = mongoose.model("User", userSchema)
+export default User

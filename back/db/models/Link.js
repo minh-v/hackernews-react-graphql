@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 const linkSchema = new mongoose.Schema({
-  description: {
+  title: {
     type: String,
     required: true,
   },
@@ -18,4 +18,6 @@ const linkSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.model("Link", linkSchema)
+const Link = mongoose.model("Link", linkSchema)
+
+export default Link

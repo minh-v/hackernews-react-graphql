@@ -5,7 +5,9 @@ import http from "http"
 import cors from "cors"
 import typeDefs from "./schema/typeDefs"
 import mongoose from "mongoose"
-import Link from "./db/schema/Link"
+import Link from "./db/models/Link"
+import User from "./db/models/User"
+import { randomUUID } from "crypto"
 require("dotenv").config()
 
 const MONGODB_URI = process.env.MONGODB_URI
@@ -35,12 +37,28 @@ async function startApolloServer(typeDefs, resolvers) {
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 }
 
+const testLinks = [
+  {
+    id: "123123131",
+    url: "google.com",
+    title: "google",
+    timeCreated: "09/123",
+  },
+]
+
 const resolvers = {
   Query: {
     linkCount: () => Link.collection.countDocuments(),
-    allLinks: (root, args) => {
+    allLinks: async (root, args) => {
       //filters missing
-      return Link.find({})
+      return await Link.find({})
+      // return testLinks
+    },
+  },
+  Mutation: {
+    addLink: (root, args) => {
+      const link = new Link({ ...args })
+      return link.save()
     },
   },
 }

@@ -1,16 +1,8 @@
 import React from "react"
 import { gql, useQuery } from "@apollo/client"
 import Link from "./components/Link"
-
-const ALL_LINKS = gql`
-  query {
-    allLinks {
-      id
-      description
-      url
-    }
-  }
-`
+import LinkForm from "./components/LinkForm"
+import { ALL_LINKS } from "./queries"
 
 const App = () => {
   const { data, loading, error } = useQuery(ALL_LINKS)
@@ -20,11 +12,13 @@ const App = () => {
   }
 
   if (error) {
+    console.log(error)
     return <div>error</div>
   }
 
   return (
     <div class="container mx-auto">
+      <LinkForm />
       {data.allLinks.map((link) => (
         <Link link={link} />
       ))}
